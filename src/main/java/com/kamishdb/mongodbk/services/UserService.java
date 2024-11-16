@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kamishdb.mongodbk.dto.UserDTO;
 import com.kamishdb.mongodbk.models.User;
 import com.kamishdb.mongodbk.repositories.UserRepository;
 import com.kamishdb.mongodbk.services.exceptions.ObjectNotFoundException;
@@ -25,4 +26,14 @@ public class UserService  {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Id não encontrado: " + id));
 	}
 	
+	public User create(User user) {
+		if(user.getEmail() == null) {
+			throw new RuntimeException("Email não pode ser nulo");
+		}
+		return userRepository.insert(user);
+	}
+	
+	public User fromDTO(UserDTO userDto) {
+		return new User(userDto.getId(), userDto.getName(), userDto.getEmail());
+	}
 }
