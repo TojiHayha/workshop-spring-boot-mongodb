@@ -3,10 +3,15 @@ package com.kamishdb.mongodbk.models;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// No mongodb é utlizado string no ID, pois garante a compatibilidade, levando em conta que o padrão do mongodb é objectId que é uma string hexadecimal
+	@Id
 	private String id;
 	private String name; 
 	private String email;
